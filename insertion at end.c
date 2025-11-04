@@ -1,76 +1,125 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
-
+ 
 struct Node {
     int data;
     struct Node* next;
 };
-
+ 
+void insertAtBeginning(struct Node** head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = *head;
+    *head = newNode;
+}
+ 
 void insertAtEnd(struct Node** head, int value) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
     newNode->next = NULL;
-
+ 
     if (*head == NULL) {
         *head = newNode;
-        printf("\nNode inserted as first node.\n");
         return;
     }
-
+ 
     struct Node* temp = *head;
-    while (temp->next != NULL)
+    while (temp->next != NULL) {
         temp = temp->next;
-
+    }
     temp->next = newNode;
-    printf("\nNode inserted at the end.\n");
 }
-
-void display(struct Node* head) {
-    if (head == NULL) {
-        printf("\nList is empty.\n");
+ 
+void insertAtPosition(struct Node** head, int value, int pos) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+ 
+    if (pos == 1) {
+        newNode->next = *head;
+        *head = newNode;
         return;
     }
-
-    struct Node* temp = head;
-    printf("\nLinked List: ");
-    while (temp != NULL) {
-        printf("%d -> ", temp->data);
+ 
+    struct Node* temp = *head;
+    int k = 1;
+    while (temp != NULL && k < pos - 1) {
         temp = temp->next;
+        k++;
+    }
+ 
+    if (temp == NULL) {
+        printf("Position out of range\n");
+        free(newNode);
+        return;
+    }
+ 
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+ 
+void printList(struct Node* head) {
+    printf("List: ");
+    if (head == NULL) {
+        printf("Empty\n");
+        return;
+    }
+    while (head != NULL) {
+        printf("%d -> ", head->data);
+        head = head->next;
     }
     printf("NULL\n");
 }
-
+ 
 int main() {
     struct Node* head = NULL;
-    int choice, value;
-
+    int choice, value, position;
+ 
     while (1) {
-        printf("\n--- LINKED LIST MENU ---\n");
-        printf("1. Insert at End\n");
-        printf("2. Display List\n");
-        printf("3. Exit\n");
+        printf("\n--- Linked List Menu ---\n");
+        printf("1. Insert at Beginning\n");
+        printf("2. Insert at End\n");
+        printf("3. Insert at Specific Position\n");
+        printf("4. Display List\n");
+        printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-
+ 
         switch (choice) {
             case 1:
-                printf("Enter value to insert: ");
+                printf("Enter value to insert at beginning: ");
+                scanf("%d", &value);
+                insertAtBeginning(&head, value);
+                break;
+ 
+            case 2:
+                printf("Enter value to insert at end: ");
                 scanf("%d", &value);
                 insertAtEnd(&head, value);
                 break;
-
-            case 2:
-                display(head);
-                break;
-
+ 
             case 3:
-                printf("\nExiting program...\n");
+                printf("Enter value: ");
+                scanf("%d", &value);
+                printf("Enter position: ");
+                scanf("%d", &position);
+                insertAtPosition(&head, value, position);
+                break;
+ 
+            case 4:
+                printList(head);
+                break;
+ 
+            case 5:
+                printf("Exiting...\n");
                 exit(0);
-
+ 
             default:
-                printf("\nInvalid choice! Please try again.\n");
+                printf("Invalid choice. Try again.\n");
         }
     }
-
+ 
     return 0;
 }
