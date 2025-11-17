@@ -1,3 +1,25 @@
+Aim:
+To write a C program to search an element in a sorted array using the Binary Search algorithm.
+
+Algorithm:
+1.Start the program.
+2.Read the number of elements n from the user.
+3.Read the n elements of the array in sorted order.
+4.Read the element to be searched (key).
+5.Initialize
+    low = 0,
+    high = n - 1.
+6.Repeat while low <= high:
+a. Find the middle index: mid = (low + high) / 2.
+b. If arr[mid] == key,
+    Display that the element is found at position mid + 1.
+    Set found = 1 and exit the loop.
+c. If arr[mid] < key, set low = mid + 1.
+d. Else set high = mid - 1.
+7.If the loop ends and found is still 0, display “Element not found”.
+8.Stop the program.
+
+Program:
 #include <stdio.h>
 int main()
 {
@@ -43,3 +65,11 @@ int main()
         return 0;
     }
 }
+Output:
+Enter the number of elements : 5
+Enter the 5 elements in sorted order : 10 20 30 40 50
+Enter the element to search : 30
+The Element 30 is found at position 3
+
+Result:
+This program uses binary search to quickly find an element in a sorted array and displays whether the element is found or not.
