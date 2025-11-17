@@ -1,14 +1,37 @@
+Aim:
+To write a C program to perform various operations on a singly linked list such as insertion at beginning, insertion at end, insertion at a specific position, deletion of a node, and displaying the list.
+
+Algorithm:
+
+1. Start the program.
+2. Create a structure Node
+Contains data
+Contains pointer next
+3. Create functions:
+CreateNode() → Allocates memory and creates a new node
+InsertAtBeginning() → Inserts new node at the start
+InsertAtEnd() → Inserts new node at the end
+InsertAtPosition() → Inserts a node at a given position
+DeleteNode() → Deletes a node by value
+DisplayList() → Prints all nodes
+4. In main():
+Initialize head = NULL
+Display menu
+Based on user choice, call the respective linked list function
+Continue until user selects Exit
+5. End the program.
+
+Program:
+
 #include <stdio.h>
 #include <stdlib.h>
  
-// Create node for linked list
 struct Node
 {
     int data;
     struct Node *next; // To hold the address of next node
 };
- 
-// To create a node and it returns address of newly created node
+
 struct Node *CreateNode(int data)
 {
     // STACK = (char *)malloc(MAX * sizeof(char));
@@ -75,7 +98,6 @@ void InsertAtPosition(struct Node **head, int data, int position)
         return;
     }
  
-    // Only when given position is valid
     struct Node *newNode = CreateNode(data);
     newNode->next = prev->next;
     prev->next = newNode;
@@ -83,7 +105,6 @@ void InsertAtPosition(struct Node **head, int data, int position)
     printf("Node with data %d inserted at position %d successfully.\n", data, position);
 }
  
-// Delete a node by value
 void DeleteNode(struct Node **head, int valueToDelete)
 {
     if (*head == NULL)
@@ -94,7 +115,6 @@ void DeleteNode(struct Node **head, int valueToDelete)
  
     struct Node *temp = *head;
  
-    // If head itself holds the value
     if (temp->data == valueToDelete)
     {
         *head = temp->next;
@@ -103,7 +123,6 @@ void DeleteNode(struct Node **head, int valueToDelete)
         return;
     }
  
-    // Search for the value
     /* while (temp != NULL && temp->data != valueToDelete)
     {
         prev = temp;
@@ -132,7 +151,6 @@ void DeleteNode(struct Node **head, int valueToDelete)
     }
 }
  
-// Display all elements
 void DisplayList(struct Node *head)
 {
     if (head == NULL)
@@ -208,3 +226,41 @@ int main()
     }
     return 0;
 }
+
+Output:
+--- Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert at Position
+4. Delete by Value
+5. Display List
+6. Exit
+Enter your choice: 1
+Enter data to insert: 10
+Node with data 10 inserted at beginning successfully.
+
+--- Linked List Menu ---
+Enter your choice: 2
+Enter data to insert: 20
+Node with data 20 inserted at the end successfully.
+
+--- Linked List Menu ---
+Enter your choice: 3
+Enter data and position to insert: 15 2
+Node with data 15 inserted at position 2 successfully.
+
+--- Linked List Menu ---
+Enter your choice: 5
+Linked List Nodes:  |At=0x1234|10|Next=0x2345| ->  |At=0x2345|15|Next=0x3456| ->  |At=0x3456|20|Next=0x0| ->
+
+--- Linked List Menu ---
+Enter your choice: 4
+Enter value to delete: 15
+Data 15 deleted from list.
+
+--- Linked List Menu ---
+Enter your choice: 5
+Linked List Nodes:  |At=0x1234|10|Next=0x3456| ->  |At=0x3456|20|Next=0x0| ->
+
+Result:
+The program successfully performs all basic operations on a singly linked list, including insertion, deletion, and displaying the nodes.
