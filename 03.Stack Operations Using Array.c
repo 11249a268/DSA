@@ -25,81 +25,104 @@ Perform the chosen operation using switch–case.
 5. Repeat until user selects Exit.
 6. End the program.
 
-Program:
+Program:#include<stdio.h>
 
-#include<stdio.h>
-int Top = -1, MAX;
+int Top = -1;   // Global variable to track top index of stack
+int MAX;        // Maximum size of the stack (entered by user)
 
+// Function to display current stack elements
 void display(int stack[])
 {
     printf("Current stack elements are-\n");
-    for(int i=0; i<=Top; i++)
+    
+    // Print all elements from bottom to top
+    for(int i = 0; i <= Top; i++)
     {
         printf(">>%d", stack[i]);
     }
     printf("(Top)");
 }
 
+// Function to push an element into stack
 void push(int stack[])
 {
     int item;
+
+    // Check overflow condition
     if(Top == MAX - 1)
     {
         printf("Stack is Overflow");
     }
     else
     {
-        printf("Enter the elements to push : ");
+        printf("Enter the element to push : ");
         scanf("%d", &item);
-        Top = Top+1;
-        stack[Top] = item;
+
+        Top = Top + 1;       // Increment Top
+        stack[Top] = item;   // Insert item at new top
     }
 }
 
+// Function to remove (pop) top element
 void pop(int stack[])
 {
     int item;
+
+    // Check underflow condition
     if(Top == -1)
     {
         printf("Stack is Underflow");
     }
     else
     {
-        item = stack[Top];
-        Top = Top-1;
+        item = stack[Top];   // Store the top element
+        Top = Top - 1;       // Decrease Top to remove element
+        printf("Popped element: %d\n", item);
     }
 }
 
 int main()
 {
-    int operation = 0, top = -1;
+    int operation = 0;
+
+    // Input stack size from user
     printf("Enter the size of stack : ");
-    scanf ("%d", &MAX);
-    int stack[MAX];
+    scanf("%d", &MAX);
+
+    int stack[MAX];  // Declare stack with given size
+
+    // Menu-driven program
     while(operation != 3)
     {
         printf("\n 1.Push \n 2.Pop \n 3.Exit \n");
         printf("\nPlease choose stack operation to perform : ");
         scanf("%d", &operation);
+
         switch(operation)
         {
             case 1:
-            push(stack);
-            display(stack);
-            break;
+                push(stack);     // Perform push operation
+                display(stack);  // Show stack
+                break;
+
             case 2:
-            pop(stack);
-            display(stack);
-            break;
+                pop(stack);      // Perform pop operation
+                display(stack);  // Show stack
+                break;
+
             case 3:
-            return 0;
+                return 0;        // Exit program
+
             default:
-            printf("Incorrect operation");
-            break;
+                printf("Incorrect operation");
+                break;
         }
     }
-return 0;
+
+    return 0;
 }
+
+
 
 Output:
 Enter the size of stack : 5
