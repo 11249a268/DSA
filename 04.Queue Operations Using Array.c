@@ -36,14 +36,16 @@ Print all elements from queue[front] to queue[rear]
 7. Stop the program
 
 Program:
-
 #include<stdio.h>
 
-int front = -1, rear = -1, MAX;
+int front = -1, rear = -1, MAX;   // Global variables for queue front, rear and max size
 
+// Function to insert (enqueue) an element into queue
 void enqueue(int queue[])
 {
     int item;
+
+    // Check overflow condition
     if(rear == MAX - 1)
     {
         printf("Queue is Overflow\n");
@@ -53,30 +55,35 @@ void enqueue(int queue[])
         printf("Enter element to enqueue : ");
         scanf("%d", &item);
 
-        if(front == -1 && rear == -1)   // first element
+        // If queue is empty (first insertion)
+        if(front == -1 && rear == -1)
         {
             front = rear = 0;
         }
         else
         {
+            // Move rear forward for next insertion
             rear = rear + 1;
         }
-        queue[rear] = item;
+
+        queue[rear] = item;   // Insert element at rear index
     }
 }
 
+// Function to remove (dequeue) an element from queue
 void dequeue(int queue[])
 {
+    // If queue is empty (underflow)
     if(front == -1 || front > rear)
     {
         printf("Queue is Underflow\n");
     }
     else
     {
-        int item = queue[front];
-        front = front + 1;
+        int item = queue[front];   // Store removed element (optional)
+        front = front + 1;         // Move front forward
 
-        // Reset queue if empty
+        // If queue becomes empty after deletion, reset pointers
         if(front > rear)
         {
             front = rear = -1;
@@ -84,8 +91,10 @@ void dequeue(int queue[])
     }
 }
 
+// Function to display queue elements
 void display(int queue[])
 {
+    // If queue is empty
     if(front == -1)
     {
         printf("Queue is Empty\n");
@@ -95,9 +104,9 @@ void display(int queue[])
         printf("Current Queue elements: ");
         for(int i = front; i <= rear; i++)
         {
-            printf(" %d ", queue[i]);
+            printf(" %d ", queue[i]);   // Print elements from front to rear
         }
-        printf(" <-rear\n");
+        printf(" <-rear\n");   // Indicate rear end
     }
 }
 
@@ -105,11 +114,13 @@ int main()
 {
     int choice;
 
+    // Input maximum queue size
     printf("Enter the size of queue: ");
     scanf("%d", &MAX);
 
-    int queue[MAX];
+    int queue[MAX];   // Declare queue array
 
+    // Menu-driven program
     while(1)
     {
         printf("\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
@@ -119,21 +130,27 @@ int main()
         switch(choice)
         {
             case 1:
-                enqueue(queue);
+                enqueue(queue);   // Insert element
                 break;
+
             case 2:
-                dequeue(queue);
+                dequeue(queue);   // Remove element
                 break;
+
             case 3:
-                display(queue);
+                display(queue);   // Show queue contents
                 break;
+
             case 4:
-                return 0;
+                return 0;         // Exit program
+
             default:
                 printf("Invalid choice\n");
         }
     }
 }
+
+
 
 Output:
 Enter the size of queue: 5
