@@ -17,43 +17,48 @@ Algorithm:
 Program:
 
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
+#include <ctype.h>      // for isalnum() – checks if character is letter or digit
+#include <string.h>     // for strlen()
 
 #define MAX 100
 
 char stack[MAX];
 int top = -1;
 
+// Check if stack is empty
 int isEmpty() {
     return top == -1;
 }
 
+// Push an element onto stack
 void push(char item) {
     if (top >= MAX - 1) {
         printf("stack overflow\n");
         return;
     }
-    stack[++top] = item;
+    stack[++top] = item;   // increment top and insert item
 }
 
+// Pop top element from stack
 char pop() {
     if (isEmpty()) {
         printf("stack underflow\n");
         return '\0';
     }
-    return stack[top--];
+    return stack[top--];   // return top element and decrease top
 }
 
+// Look at top element without removing
 char peek() {
     if (isEmpty()) return '\0';
     return stack[top];
 }
 
+// Function to decide operator precedence
 int precedence(char item) {
-    if (item == '^') return 3;
-    else if (item == '*' || item == '/') return 2;
-    else if (item == '+' || item == '-') return 1;
+    if (item == '^') return 3;                     // highest precedence
+    else if (item == '*' || item == '/') return 2; // next level
+    else if (item == '+' || item == '-') return 1; // lowest among operators
     else return 0;
 }
 
@@ -62,34 +67,48 @@ int main() {
     int i, k = 0;
     char ch, temp;
 
+    // Input infix expression
     printf("Enter Infix expression: ");
     scanf("%s", infix);
 
+    // Scan the infix expression from left to right
     for (i = 0; i < (int)strlen(infix); i++) {
         ch = infix[i];
 
-        if (isalnum(ch)) {              /* operand */
+        if (isalnum(ch)) {         
+            /* If character is operand (A, B, 1, 2, etc.) */
             postfix[k++] = ch;
-        } else if (ch == '(') {
+        } 
+        else if (ch == '(') {     
+            /* Opening parenthesis is pushed directly */
             push(ch);
-        } else if (ch == ')') {
+        } 
+        else if (ch == ')') {     
+            /* Pop until '(' is found */
             while (!isEmpty() && (temp = pop()) != '(') {
                 postfix[k++] = temp;
             }
-        } else {                        /* operator */
+        } 
+        else {                    
+            /* Operator (+, -, *, /, ^) */
+            /* Pop operators with equal or higher precedence */
             while (!isEmpty() && precedence(peek()) >= precedence(ch)) {
                 postfix[k++] = pop();
             }
-            push(ch);
+            push(ch);   // push current operator
         }
     }
 
+    // Pop any remaining operators in the stack
     while (!isEmpty()) {
         postfix[k++] = pop();
     }
-    postfix[k] = '\0';
 
-    printf("postfix expression: %s\n", postfix);
+    postfix[k] = '\0';    // End postfix string
+
+    // Output result
+    printf("Postfix expression: %s\n", postfix);
+
     return 0;
 }
 
