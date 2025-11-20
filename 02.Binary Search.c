@@ -21,50 +21,66 @@ d. Else set high = mid - 1.
 
 Program:
 #include <stdio.h>
+
 int main()
 {
-    int n,i,mid,low,high,key,found=0;
+    int n, i, mid, low, high, key, found = 0;
+
+    // Take number of elements from the user
     printf("Enter the number of elements : ");
     scanf("%d", &n);
- 
+
+    // Declare array of size n
     int arr[n];
-    printf("Enter the %d elements in sorted order : ",n);
- 
-    for(i=0;i<n;i++)
+
+    // Input elements (must be in sorted order for binary search)
+    printf("Enter the %d elements in sorted order : ", n);
+    for(i = 0; i < n; i++)
     {
-    scanf("%d", &arr[i]);
+        scanf("%d", &arr[i]);
     }
- 
-    low=0;
-    high=n-1;
- 
+
+    // Initialize low and high for binary search
+    low = 0;
+    high = n - 1;
+
+    // Input element to search
     printf("Enter the element to search : ");
     scanf("%d", &key);
- 
+
+    // Binary search loop
     while(low <= high)
     {
-        mid = (low + high)/2;
+        // Find middle index
+        mid = (low + high) / 2;
+
+        // If key is found at mid
         if (arr[mid] == key)
         {
-            printf("The Element %d is found at the position %d", key, mid+1);
-            found = 1;
-            break;
+            printf("The Element %d is found at the position %d", key, mid + 1);
+            found = 1;   // Mark that element is found
+            break;       // Exit the loop
         }
+        // If key is greater, search in right half
         else if (arr[mid] < key)
         {
             low = mid + 1;
         }
+        // If key is smaller, search in left half
         else
         {
             high = mid - 1;
         }
     }
+
+    // If element was not found in the array
     if (!found)
     {
         printf("Element not found");
         return 0;
     }
 }
+
 Output:
 Enter the number of elements : 5
 Enter the 5 elements in sorted order : 10 20 30 40 50
