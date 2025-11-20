@@ -39,35 +39,43 @@ Program:
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for a queue node
 struct Node {
     int data;
-    struct Node *next;
+    struct Node *next;   // Points to next node (for circular link)
 };
 
+// Front → first element, Rear → last element
 struct Node *front = NULL, *rear = NULL;
 
-// ENQUEUE operation
+
+// ENQUEUE OPERATION – Insert at the rear
 void enqueue() {
     int value;
     printf("Enter value to enqueue: ");
     scanf("%d", &value);
 
+    // Create a new node
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
+    newNode->next = NULL;
 
-    if (front == NULL) {     // Queue empty
+    // If queue is empty
+    if (front == NULL) {
         front = rear = newNode;
-        rear->next = front;  // Circular link
-    } else {
-        rear->next = newNode;
-        rear = newNode;
-        rear->next = front;
+        rear->next = front;      // Circular connection
+    } 
+    else {
+        rear->next = newNode;    // Link old rear to new node
+        rear = newNode;          // Move rear forward
+        rear->next = front;      // Maintain circular link
     }
 
     printf("Element enqueued.\n");
 }
 
-// DEQUEUE operation
+
+// DEQUEUE OPERATION – Delete from the front
 void dequeue() {
     if (front == NULL) {
         printf("Queue Underflow.\n");
@@ -76,18 +84,21 @@ void dequeue() {
 
     struct Node *temp = front;
 
-    if (front == rear) {  // Only one node
+    // If only one element in queue
+    if (front == rear) {
         front = rear = NULL;
-    } else {
-        front = front->next;
-        rear->next = front;  // Maintain circular link
+    } 
+    else {
+        front = front->next;     // Move front to next node
+        rear->next = front;      // Keep circular link
     }
 
-    free(temp);
+    free(temp);                  // Delete old front
     printf("Element dequeued.\n");
 }
 
-// DISPLAY operation
+
+// DISPLAY OPERATION – Print all queue elements
 void display() {
     if (front == NULL) {
         printf("Queue is empty.\n");
@@ -97,6 +108,8 @@ void display() {
     struct Node *temp = front;
 
     printf("Circular Queue elements: ");
+
+    // Traverse until we return to front
     do {
         printf("%d -> ", temp->data);
         temp = temp->next;
@@ -105,6 +118,8 @@ void display() {
     printf("(back to front)\n");
 }
 
+
+// MAIN FUNCTION – Menu-driven program
 int main() {
     int choice;
 
