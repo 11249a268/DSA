@@ -30,46 +30,54 @@ Print each node's data
 5.Stop the program
 
 Program:
-
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure of a node in linked list
 struct Node {
-    int data;
-    struct Node *next;
+    int data;               // stores value
+    struct Node *next;      // points to next node
 };
 
-struct Node *top = NULL;
+struct Node *top = NULL;    // top pointer for stack (initially empty)
 
-// PUSH operation
+
+// PUSH operation: Insert element at TOP of stack
 void push() {
     int value;
     printf("Enter value to push: ");
     scanf("%d", &value);
 
+    // Create a new node
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
+
+    // Link new node to current top
     newNode->next = top;
+
+    // Update top pointer to new node
     top = newNode;
 
     printf("Element pushed.\n");
 }
 
-// POP operation
+
+// POP operation: Remove element from TOP of stack
 void pop() {
-    if (top == NULL) {
+    if (top == NULL) {          // Stack empty check
         printf("Stack Underflow.\n");
         return;
     }
 
-    struct Node *temp = top;
-    top = top->next;
-    free(temp);
+    struct Node *temp = top;    // temp holds the top node
+    top = top->next;            // move top to next node
 
+    free(temp);                 // delete old top
     printf("Element popped.\n");
 }
 
-// DISPLAY operation
+
+// DISPLAY operation: Print all elements from TOP to bottom
 void display() {
     if (top == NULL) {
         printf("Stack is empty.\n");
@@ -77,16 +85,18 @@ void display() {
     }
 
     struct Node *temp = top;
-    printf("Stack elements (top to bottom): ");
 
+    printf("Stack elements (top to bottom): ");
     while (temp != NULL) {
-        printf("%d -> ", temp->data);
-        temp = temp->next;
+        printf("%d -> ", temp->data);  // print node data
+        temp = temp->next;             // move to next node
     }
 
     printf("NULL\n");
 }
 
+
+// MAIN FUNCTION with menu
 int main() {
     int choice;
 
@@ -103,11 +113,12 @@ int main() {
             case 1: push(); break;
             case 2: pop(); break;
             case 3: display(); break;
-            case 4: return 0;
+            case 4: return 0;   // Exit program
             default: printf("Invalid choice!\n");
         }
     }
 }
+
 
 Output:
 --- STACK USING LINKED LIST ---
