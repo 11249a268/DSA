@@ -165,8 +165,7 @@ int main()
 Tree-Traversal-DFS.c
 Displaying Tree-Traversal-DFS.c.
 
-Result
-
+Result:
 The program takes input from the user for the number of nodes (n) and then dynamically inserts the values into a Binary Search Tree (BST). The three tree traversal methods (Preorder, Inorder, Postorder) are applied to the BST, and the results are printed.
 
 For the given example input:
