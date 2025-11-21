@@ -67,7 +67,8 @@ Recursively traverse the right subtree (root->right).
 
 Print root->data.
 
-
+  
+PROGRAM:
   #include <stdio.h>
 #include <stdlib.h>
 
