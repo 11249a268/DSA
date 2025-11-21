@@ -3,9 +3,7 @@ AIM:To implement and perform tree traversal operations (Preorder, Inorder, and P
 
 Input: root (pointer to the root node of the BST), value (integer to insert)
 Output: root (updated tree root after insertion)
-
-Steps:
-
+ALGORITHM:
 If root is NULL:
 
 Create a new node with the given value.
